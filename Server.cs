@@ -5,7 +5,7 @@
  using System.Net.Sockets;
  using System.Text;
 
- class Server
+ public class Server
  {
   private const int Port = 5000;
 

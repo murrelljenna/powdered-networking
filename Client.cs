@@ -1,39 +1,42 @@
 ﻿using System.Net.Sockets;
 using System.Text;
 
-class SocketClient
+namespace powdered_networking
 {
-    private const string ServerIp = "127.0.0.1"; // Localhost
-    private const int Port = 5000;
-
-    public static void ConnectAndSendMessage()
+    class SocketClient
     {
-        try
+        private const string ServerIp = "127.0.0.1"; // Localhost
+        private const int Port = 5000;
+
+        public static void ConnectAndSendMessage()
         {
-            // Connect to the server
-            TcpClient client = new TcpClient(ServerIp, Port);
-            Console.WriteLine("Connected to server.");
+            try
+            {
+                // Connect to the server
+                TcpClient client = new TcpClient(ServerIp, Port);
+                Console.WriteLine("Connected to server.");
 
-            // Get a stream object for writing data
-            NetworkStream stream = client.GetStream();
-            string message = "hello world";
+                // Get a stream object for writing data
+                NetworkStream stream = client.GetStream();
+                string message = "hello world";
 
-            // Convert string to bytes and send
-            byte[] data = Encoding.UTF8.GetBytes(message);
-            stream.Write(data, 0, data.Length);
-            Console.WriteLine($"Sent: {message}");
+                // Convert string to bytes and send
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                stream.Write(data, 0, data.Length);
+                Console.WriteLine($"Sent: {message}");
 
-            // Close the connection
-            client.Close();
+                // Close the connection
+                client.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
-        catch (Exception ex)
+
+        static void Main(string[] args)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            ConnectAndSendMessage();
         }
-    }
-
-    static void Main(string[] args)
-    {
-        ConnectAndSendMessage();
     }
 }
